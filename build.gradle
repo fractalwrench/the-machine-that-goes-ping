@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.9"
+    }
+}
+plugins {
+    id 'groovy'
+}
+apply plugin: "com.gradle.plugin-publish"
+
+
+// Repositories for dependencies
+repositories {
+    jcenter()
+    google()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    compile 'com.android.tools.build:gradle:3.0.1'
+}
+
+pluginBundle {
+    website = 'https://fractalwrench.co.uk'
+    vcsUrl = 'https://github.com/fractalwrench/the-machine-that-goes-ping.git'
+
+    plugins {
+        pingPlugin {
+            id = 'com.fractalwrench.pingmachine'
+            description = 'Makes a ping noise on build completion'
+            displayName = 'Ping Machine'
+            tags = ['android']
+            version = '1.0.0'
+        }
+    }
+}
+
+tasks.withType(Javadoc).all { enabled = false }
